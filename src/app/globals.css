@@ -2,32 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+.animated_node {
+  animation: pinchNode 0.2s ease-out;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  /* Animation name, duration, easing function, and fill mode */
+}
+@keyframes pinchNode {
+  0% {
+    transform: scale(1.4);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
+.animated_modal {
+  animation: pinchModal 0.2s ease-out;
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  /* Animation name, duration, easing function, and fill mode */
 }
+@keyframes pinchModal {
+  0% {
+    transform: scale(1.1);
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  100% {
+    transform: scale(1);
   }
 }
