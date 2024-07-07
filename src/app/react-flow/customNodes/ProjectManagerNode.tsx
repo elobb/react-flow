@@ -2,12 +2,20 @@ import React from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import { Handle, Position } from "reactflow";
 
-const ProjectManagerNode = ({ id, data }: any) => {
+interface ProjectManagerNodeProps {
+  id: string;
+  data: {
+    name: string;
+    deleteNode: (id: string) => void;
+  };
+}
+
+const ProjectManagerNode: React.FC<ProjectManagerNodeProps> = ({ id, data }) => {
   const { name, deleteNode } = data;
   return (
-    <div className="bg-white shadow-md   min-w-[230px] max-w-md rounded-md p-4 relative border border-gray-300">
+    <div className="bg-white shadow-md min-w-[230px] max-w-md rounded-md p-4 relative border border-gray-300">
       <button
-        className="absolute top-1  right-1 text-2xl text-red-500 hover:ring-1 ring-red-600 ring-offset-1 duration-300 cursor-pointer rounded-full"
+        className="absolute top-1 right-1 text-2xl text-red-500 hover:ring-1 ring-red-600 ring-offset-1 duration-300 cursor-pointer rounded-full"
         onClick={() => deleteNode(id)}
       >
         <IoIosCloseCircle />

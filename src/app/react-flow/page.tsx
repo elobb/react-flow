@@ -8,6 +8,10 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
   MarkerType,
+  Connection,
+  Edge,
+  Node,
+  NodeTypes,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import ProjectNode from "./customNodes/ProjectNode";
@@ -15,26 +19,27 @@ import ProjectManagerNode from "./customNodes/ProjectManagerNode";
 import DeveloperNode from "./customNodes/DeveloperNode";
 import { GoProjectRoadmap } from "react-icons/go";
 import { FaUserTie } from "react-icons/fa";
-import { PiUserSwitchDuotone } from "react-icons/pi";
 import { FaUserLarge } from "react-icons/fa6";
 
-const nodeTypes = {
+const nodeTypes: NodeTypes = {
   project: ProjectNode,
   projectManager: ProjectManagerNode,
   developer: DeveloperNode,
 };
 
-const ReactFlowComponent = () => {
-  const [isModal, setIsModal] = useState(false);
-  const [type, setType] = useState("");
-  const [text, setText] = useState("");
-  const deleteNode = (nodeId) => {
+const ReactFlowComponent: React.FC = () => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [type, setType] = useState<string>("");
+  const [text, setText] = useState<string>("");
+
+  const deleteNode = (nodeId: string) => {
     setNodes((nds) => nds.filter((node) => node.id !== nodeId));
     setEdges((eds) =>
       eds.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
     );
   };
-  const initialNodes = [
+
+  const initialNodes: Node[] = [
     {
       id: "1",
       data: { name: "Atropin", deleteNode: deleteNode },
@@ -61,7 +66,7 @@ const ReactFlowComponent = () => {
     },
   ];
 
-  const initialEdges = [
+  const initialEdges: Edge[] = [
     { id: "1-2", source: "1", target: "2", animated: true },
     { id: "1-3", source: "2", target: "3", animated: true },
     { id: "1-4", source: "2", target: "4", animated: true },
@@ -70,14 +75,13 @@ const ReactFlowComponent = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onConnect = (connection) => {
+  const onConnect = (connection: Connection) => {
     setEdges((eds) =>
       addEdge(
         {
           ...connection,
           type: "custom",
           animated: true,
-
           markerEnd: { type: MarkerType.Arrow },
         },
         eds
@@ -86,7 +90,7 @@ const ReactFlowComponent = () => {
   };
 
   const addNode = () => {
-    const newNode = {
+    const newNode: Node = {
       id: (nodes.length + 1).toString(),
       data: { name: text, deleteNode: deleteNode },
       position: { x: Math.random() * 400, y: Math.random() * 400 },
@@ -98,11 +102,11 @@ const ReactFlowComponent = () => {
     setType("");
   };
 
-  const deleteEdge = (edgeId) => {
+  const deleteEdge = (edgeId: string) => {
     setEdges((eds) => eds.filter((edge) => edge.id !== edgeId));
   };
 
-  const onEdgeClick = (event, edge) => {
+  const onEdgeClick = (event: React.MouseEvent, edge: Edge) => {
     event.stopPropagation();
     deleteEdge(edge.id);
   };
@@ -121,17 +125,16 @@ const ReactFlowComponent = () => {
     };
   }, [isModal]);
 
-  const handleOpenModal = (type) => {
+  const handleOpenModal = (type: string) => {
     setIsModal(true);
     setType(type);
   };
 
   return (
     <div className="p-4">
-      <div className="mb-4  flex flex-wrap gap-4">
+      <div className="mb-4 flex flex-wrap gap-4">
         <button
           onClick={() => handleOpenModal("project")}
-          // onClick={() => addNode("project", "New Project")}
           className="px-4 py-2 flex gap-2 items-center justify-center bg-blue-500 text-white rounded-md shadow-md"
         >
           <GoProjectRoadmap size={20} />
@@ -164,11 +167,8 @@ const ReactFlowComponent = () => {
           onConnect={onConnect}
           nodeTypes={nodeTypes}
           onEdgeClick={onEdgeClick}
-          // fitView
         >
-          <Background
-          //  id="1" gap={15} color="blue"
-          />
+          <Background />
           <Controls />
           <MiniMap />
         </ReactFlow>
@@ -178,9 +178,9 @@ const ReactFlowComponent = () => {
         <div className="fixed top-0 left-0 w-full h-full bg-zinc-950 bg-opacity-40 flex items-center justify-center">
           <div
             onClick={() => setIsModal(false)}
-            className="absolute z-0 w-full h-full left-0 top-0 "
+            className="absolute z-0 w-full h-full left-0 top-0"
           />
-          <div className="relative animated_modal z-10 w-4/12  bg-white p-5 rounded-md  flex flex-col gap-4    ">
+          <div className="relative animated_modal z-10 w-4/12 bg-white p-5 rounded-md flex flex-col gap-4">
             <h1 className="text-lg font-semibold text-zinc-700">
               Add new {type}
             </h1>
@@ -192,7 +192,7 @@ const ReactFlowComponent = () => {
             />
             <button
               onClick={addNode}
-              className="text-white bg-blue-500 w-fit  px-6 text-lg font-semibold  py-1 rounded-md mt-auto "
+              className="text-white bg-blue-500 w-fit px-6 text-lg font-semibold py-1 rounded-md mt-auto"
             >
               Add
             </button>
