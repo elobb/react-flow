@@ -2,7 +2,7 @@ import React from "react";
 import { Handle, Position } from "reactflow";
 import { IoIosCloseCircle } from "react-icons/io";
 
-const ProjectNode = ({ id, data }) => {
+const ProjectNode = ({ id, data }: any) => {
   const { name, deleteNode } = data;
   return (
     <div className="bg-white shadow-md min-w-[230px] max-w-md rounded-md p-4 relative border border-gray-300">
