@@ -180,7 +180,7 @@ const ReactFlowComponent: React.FC = () => {
             onClick={() => setIsModal(false)}
             className="absolute z-0 w-full h-full left-0 top-0"
           />
-          <div className="relative animated_modal z-10 w-4/12 bg-white p-5 rounded-md flex flex-col gap-4">
+          <div className="relative animated_modal z-10 w-11/12 md:w-8/12 lg:w-4/12 bg-white p-5 rounded-md flex flex-col gap-4">
             <h1 className="text-lg font-semibold text-zinc-700">
               Add new {type}
             </h1>
