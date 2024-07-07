@@ -17,7 +17,7 @@ const ProjectManagerNode = ({ id, data }: any) => {
       </strong>
       <p className="text-gray-600 ">{name}</p>
       <Handle type="source" position={Position.Bottom} />
-      <Handle type="target" position={Position.top} />
+      <Handle type="target" position={Position.Top} />
     </div>
   );
 };
